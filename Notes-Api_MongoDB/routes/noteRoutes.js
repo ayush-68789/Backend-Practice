@@ -28,6 +28,15 @@ Router.get('/notes/:id', async (req , res)=> {
     }) 
 })
 
+Router.get('/notes', async (req , res)=> {
+    let {id} = req.query ; 
+    let data = await notes.findById(id) ;
+    res.status(200).json({
+        message : "Data fetched", 
+        data : data
+    }) 
+})
+
 Router.delete('/notes/:id', async (req, res) => {
     let {id} = req.params ;
     await notes.findByIdAndDelete(id) ;
