@@ -4,9 +4,7 @@ const Post = require('../models/Post.js') ;
 
 Router.get('/posts', async(req, res) => {
     let data = await Post.find({}) ; 
-    res.status(200).json({
-        data : data
-    })
+    res.status(200).json(data) ;
 })
 
 Router.post('/create-post', async(req ,res) => {
