@@ -2,22 +2,22 @@ const express = require('express') ;
 const Products = require('../models/Product') ; 
 const Router = express.Router() ; // mini instance
 
-Router.get('/products', async (req ,res)=> {
-    let data = await Products.find({}) ; 
-    res.render('products/index' , {data});   
-})
+const productController = require('../controllers/productControllers') ;
+const authMiddleWare = require('../middleware/authMiddleWare') ;
+
+Router.get('/products', productController.getAllProducts)
 
 // to show the form of new product
-Router.get('/product/new', (req ,res)=> {
+Router.get('/product/new', authMiddleWare.authSeller ,(req ,res)=> {
     res.render('products/new') ;
 })
 
 // to actually add the product
-Router.post('/products', async(req ,res)=> {
-    let {name, img , price , desc } = req.body ;
-    await Products.create( {name, img , price , desc }) ;  
-    res.redirect('/products') ; 
-})
+Router.post("/products", authMiddleWare.authSeller, async (req, res) => {
+    let { name, img, price, desc } = req.body;
+    await Products.create({ name, img, price, desc });
+    res.redirect("/products");
+});
 
 // to show specific product details
 Router.get('/products/:id', async (req ,res)=> {
@@ -28,24 +28,24 @@ Router.get('/products/:id', async (req ,res)=> {
 })
 
 // to show the edit form
-Router.get('/products/:id/edit', async(req ,res)=> {
+Router.get('/products/:id/edit',authMiddleWare.authSeller, async(req ,res)=> {
     let {id} = req.params ; 
     let prod = await Products.findById(id) ; 
     res.render('products/edit', {prod}) ;
 })
 
 // to edit the product
-Router.patch('/products/:id' , async (req ,res) => {
-    let {id} = req.params ; 
-    let {name, img , price , desc } = req.body ;
-    await Products.findByIdAndUpdate(id , {name, img , price , desc }) ;
-    res.redirect(`/products/${id}`) ;
-})
+Router.patch("/products/:id", authMiddleWare.authSeller, async (req, res) => {
+    let { id } = req.params;
+    let { name, img, price, desc } = req.body;
+    await Products.findByIdAndUpdate(id, { name, img, price, desc });
+    res.redirect(`/products/${id}`);
+});
 
-Router.delete('/products/:id' , async (req , res) => {
-    let {id} = req.params ; 
-    await Products.findByIdAndDelete(id) ; 
-    res.redirect('/products') ;
-})
+Router.delete("/products/:id", authMiddleWare.authSeller, async (req, res) => {
+    let { id } = req.params;
+    await Products.findByIdAndDelete(id);
+    res.redirect("/products");
+});
 
 module.exports = Router ;   
