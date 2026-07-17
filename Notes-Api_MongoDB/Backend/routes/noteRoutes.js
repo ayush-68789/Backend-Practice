@@ -10,7 +10,7 @@ Router.get('/notes', async (req ,res) => {
     }) 
 })
 
-Router.post('/notes', async (req ,res) => {
+Router.post('/create-notes', async (req ,res) => {
     console.log(req.body) ; 
     let {title, desc} = req.body ; 
     await notes.insertOne({title, desc}) ; 
@@ -28,14 +28,14 @@ Router.get('/notes/:id', async (req , res)=> {
     }) 
 })
 
-Router.get('/notes', async (req , res)=> {
-    let {id} = req.query ; 
-    let data = await notes.findById(id) ;
-    res.status(200).json({
-        message : "Data fetched", 
-        data : data
-    }) 
-})
+// Router.get('/notes', async (req , res)=> {
+//     let {id} = req.query ; 
+//     let data = await notes.findById(id) ;
+//     res.status(200).json({
+//         message : "Data fetched", 
+//         data : data
+//     }) 
+// })
 
 Router.delete('/notes/:id', async (req, res) => {
     let {id} = req.params ;
