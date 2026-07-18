@@ -3,6 +3,7 @@ const ejsmate = require('ejs-mate') ;
 const methodoverride = require('method-override') ;
 require('dotenv').config() ; 
 const cookieParser = require('cookie-parser')
+const currentUser = require('./middleware/currentUser') ; 
 
 const express = require('express') ; 
 const app = express() ;
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended: true})) ;
 app.use(methodoverride('_method')) ; // ab mein method override ko _method se access kr pauga
 app.use(cookieParser()) ;
 app.use(express.json()) ;
+app.use(currentUser) ;
 
 app.use(productRoutes) ;
 app.use(reviewRoutes) ;

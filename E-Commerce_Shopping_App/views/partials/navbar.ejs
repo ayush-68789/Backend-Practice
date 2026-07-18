@@ -9,15 +9,20 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/products">Home</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/product/new">New</a>
-                    </li>
+                    <% if(user && user.role==='seller'){ %>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/product/new">New</a>
+                        </li>
+                    <%}%>
                 </ul>
                 <div class="d-flex" >
-                    <a href="/login" class="btn btn-outline-success" >Login</a>
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-outline-success" >Logout</button>
-                    </form>
+                    <% if(user){ %>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-outline-success" >Logout</button>
+                        </form>
+                    <% } else{ %> 
+                        <a href="/login" class="btn btn-outline-success" >Login</a>
+                    <% } %>
                 </div>
             </div>
         </div>

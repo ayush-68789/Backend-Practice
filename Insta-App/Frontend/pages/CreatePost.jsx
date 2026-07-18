@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [formData, setFormData] = useState({
     img: "",
     caption: "",
   });
+
+  const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -22,6 +25,7 @@ const CreatePost = () => {
       img : '' , 
       caption : '' 
     })
+    navigate('/feed') ;
   };
 
   const changeHandler = (e) => {

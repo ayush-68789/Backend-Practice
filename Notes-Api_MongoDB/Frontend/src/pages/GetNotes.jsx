@@ -32,6 +32,9 @@ const GetNotes = () => {
                         {idx}: {elem.title}
                         {elem.desc}
                         <button>
+                            <Link to={`/edit-notes/${elem._id}`}>Edit</Link>
+                        </button>
+                        <button>
                             <Link to={`/delete-notes/${elem._id}`}>Delete</Link>
                         </button>
                     </div>

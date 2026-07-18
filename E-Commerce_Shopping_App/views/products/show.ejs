@@ -9,7 +9,9 @@
                 <p class="card-text"><%=prod.desc%></p>
                 <p class="card-text">₹<%=prod.price%></p>
                 <a href="/products" class="btn btn-info">Home</a>
-                <a href="/products/<%=prod._id%>/edit" class="btn btn-primary">Edit</a>
+                <% if(user && user.role==='seller'){ %>
+                    <a href="/products/<%=prod._id%>/edit" class="btn btn-primary">Edit</a>
+                <% } %>
                 <a href="#" class="btn btn-secondary">Add to Cart</a>
                 <a href="#" class="btn btn-success">Buy</a>
             </div>
