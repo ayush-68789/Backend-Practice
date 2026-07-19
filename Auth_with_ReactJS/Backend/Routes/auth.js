@@ -12,4 +12,3 @@ Router.post('/dev/login', devController.loginDev) ;
 Router.post('/dev/logout', devController.logoutDev) ;
 
 module.exports = Router ;
-z
