@@ -30,7 +30,11 @@ const registerUser = async(req , res)=> {
         account_type : "user"
     }, process.env.JWT_SECRET)
 
-    res.cookie("token" ,token) ;
+    res.cookie("token" ,token, {
+        httpOnly : true ,
+        sameSite : "lax", 
+        secure : false
+    }) ;
 
     res.status(201).json({
         Message : "User Registered Successfully"
@@ -65,7 +69,12 @@ const loginUser = async(req ,res) =>{
         account_type : "user"
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token) ; 
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false,
+    });
+
     res.status(200).json({
         Message : "User Logged in"
     })
