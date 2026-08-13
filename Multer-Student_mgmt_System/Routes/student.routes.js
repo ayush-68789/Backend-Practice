@@ -5,9 +5,13 @@ const upload = require('../middleware/upload') ;
 
 Router.post('/students' , upload.single('image'),async (req ,res) =>{
     let {name , age } = req.body ; 
+    console.log(req.file) ;
+    // const photoPath = req.file.path ; 
+    const photoBase64 = req.file.buffer.toString('base64') ; 
     let student = await Student.create({
         name : name , 
-        age : age
+        age : age, 
+        image : photoBase64
     })
     return res.status(201).json({
         Message : "Created" ,

@@ -8,6 +8,9 @@ const studentSchema = new mongoose.Schema({
     age : {
         type : String ,
         required : true ,
+    },
+    image : {
+        type : String , // for storing base64 encoded data
     }
 })
 
