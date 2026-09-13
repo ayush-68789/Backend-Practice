@@ -45,12 +45,12 @@ const register = async(req , res) => {
         const accessToken = generateAccessToken(user._id) ;
         const refreshToken = generateRefreshToken(user._id) ;
 
-        res.cookie("refreshToken", refreshToken ,{
-            httpOnly : true ,
-            secure : true ,
-            sameSite : 'strict' ,
-            maxAge : 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
         return res.status(201).json({
             Message : "User Registered Successfully",
             success : true ,
@@ -95,12 +95,12 @@ const login = async(req ,res) => {
         const accessToken = generateAccessToken(doesExist._id) ;
         const refreshToken = generateRefreshToken(doesExist._id) ;
 
-        res.cookie("refreshToken", refreshToken , {
-            httpOnly : true,
-            secure : true ,
-            sameSite: 'strict',
-            maxAge : 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
         return res.status(200).json({
             "Message" : "Logged in Successfull",
@@ -151,10 +151,10 @@ const refresh = async(req , res) => {
 
 const logout = async(req ,res) => {
     res.clearCookie("refreshToken", {
-        httpOnly : true ,
-        secure : true ,
-        sameSite : 'strict' 
-    })
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+    });
 
     return res.status(200).json({
         Message : "Logged Out successfully",

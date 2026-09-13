@@ -6,7 +6,14 @@ const morgan = require('morgan') ; // Logger middleware
 const connectDB = require('./config/db') ; 
 const authRoutes = require('./routes/auth.routes') ;
 const cookieParser = require('cookie-parser') ;
+const CORS = require('cors') ;
 
+app.use(
+    CORS({
+        origin: "http://localhost:5173",
+        credentials : true
+    })
+);
 app.use(express.json()) ; // body parser middleware
 app.use(morgan('dev')) ; // logger middleware
 app.use(cookieParser()) ;
